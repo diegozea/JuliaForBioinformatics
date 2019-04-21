@@ -1,0 +1,10 @@
+name = "JuliaForBioinformatics"
+uuid = "ad8f7681-fa1f-593d-9a03-64b67b4fb141"
+authors = ["Diego Javier Zea <diegozea@gmail.com>"]
+version = "0.1.0"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
