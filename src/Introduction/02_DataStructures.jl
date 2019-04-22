@@ -25,6 +25,46 @@ for element in vector
 	println(element)
 end
 
+# #### Exercise 1
+#
+# Write a function to return the distance between two three dimensional points
+# using a for loop and indexing the vectors.
+
+## distance(...
+
+#-
+
+using Test
+A = [1.25, 2.0, 3.6]
+B = [-3.5, 4.7, 5.0]
+@test distance(A, B) ≈ 23.791849576062805
+@test distance(B, B) ≈ 0.0
+
+# ### Vectorized operations
+#
+# You can use a `.` to indicate that a function or operator should be applied
+# element by element:
+
+A = [1.25, 2.0, 3.6]
+B = [-3.5, 4.7, 5.0]
+AB = A .- B
+
+#-
+
+AB.^2
+
+# Multiple vectorized operations get fused in a single loop (without temporal
+# arrays like AB):
+
+(A .- B).^2
+
+# This allows to vectorize any function defined by the user:
+
+f(x) = 3.45x + 4.76
+f.(A)
+
+# ### Matrices
+#
 # Matrices, bidimentional arrays, can be defined with the following notation:
 
 matrix = [ 1.0 4.0 7.0
