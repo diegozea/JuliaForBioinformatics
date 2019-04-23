@@ -57,20 +57,31 @@ To read this kind of files, you can use the
 using CSV
 ```
 
-For example, in the data folder of this repo there is the
-`pdb_chain_taxonomy.tsv.gz` file that has a summary of the NCBI tax_id(s),
-scientific_name(s) and chain type for each PDB chain that has been processed
-in the SIFTS database. This table was downloaded from the
-[SIFTS site](https://www.ebi.ac.uk/pdbe/docs/sifts/quick.html).
-
-```@example 04_Stats
-using  JuliaForBioinformatics
-repo_path = pathof(JuliaForBioinformatics)
-table_path = abspath(repo_path, "..", "..", "data", "pdb_chain_taxonomy.tsv")
-```
+For example, the `pdb_chain_taxonomy.tsv.gz` file that has a summary of the
+NCBI tax_id(s), scientific_name(s) and chain type for each PDB chain that
+has been processed in the SIFTS database. This table should be downloaded
+from the [SIFTS site](https://www.ebi.ac.uk/pdbe/docs/sifts/quick.html).
 
 ```@example 04_Stats; continued = true
-df = CSV.read(table_path,
+table_path = download(
+    "ftp://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/tsv/pdb_chain_taxonomy.tsv.gz",
+    "pdb_chain_taxonomy.tsv.gz")
+```
+
+```@example 04_Stats
+run(`gunzip $table_path`)
+```
+
+If that fails, you can use the first lines stored in the data folder:
+```julia
+using  JuliaForBioinformatics
+data_path = abspath(pathof(JuliaForBioinformatics), "..", "..", "data")
+table_path = joinpath(data_path, "pdb_chain_taxonomy_head.tsv")
+
+```@example 04_Stats; continued = true
+#```
+
+df = CSV.read("pdb_chain_taxonomy.tsv",
     header = 2,  ## the header is in the second line
     delim = '\t',  ## delimiter is TAB instead of ','
     quotechar='`'  ## file don't use "" to quote, e.g.: "Bacillus coli" Migula 1895
