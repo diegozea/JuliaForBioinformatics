@@ -1,27 +1,15 @@
 using Literate, JuliaForBioinformatics
 
-DOCS = @__DIR__
-REPO = abspath(DOCS, "..")
-MD_OUTPUT = joinpath(DOCS, "src")
-NB_OUTPUT = joinpath(DOCS, "notebooks")
+REPO = abspath(@__DIR__, "..")
+MD_OUTPUT = joinpath(@__DIR__, "src")
+NB_OUTPUT = joinpath(@__DIR__, "src", "notebooks")
 
-
-Literate.markdown(joinpath(REPO, "src", "Introduction", "01_Introduction.jl"),
-    MD_OUTPUT, execute=false, documenter=true)
-Literate.markdown(joinpath(REPO, "src", "Introduction", "02_DataStructures.jl"),
-    MD_OUTPUT, execute=false, documenter=true)
-Literate.markdown(joinpath(REPO, "src", "Introduction", "03_Files.jl"),
-    MD_OUTPUT, execute=false, documenter=true)
-Literate.markdown(joinpath(REPO, "src", "Introduction", "04_Stats.jl"),
-    MD_OUTPUT, execute=false, documenter=true)
-
-
-
-Literate.notebook(joinpath(REPO, "src", "Introduction", "01_Introduction.jl"),
-    NB_OUTPUT, execute=false, documenter=true)
-Literate.notebook(joinpath(REPO, "src", "Introduction", "02_DataStructures.jl"),
-    NB_OUTPUT, execute=false, documenter=true)
-Literate.notebook(joinpath(REPO, "src", "Introduction", "03_Files.jl"),
-    NB_OUTPUT, execute=false, documenter=true)
-Literate.notebook(joinpath(REPO, "src", "Introduction", "04_Stats.jl"),
-    NB_OUTPUT, execute=false, documenter=true)
+for file in [ "01_Introduction.jl",
+              "02_DataStructures.jl",
+              "03_Files.jl",
+              "04_Stats.jl" ]
+    Literate.markdown(joinpath(REPO, "src", "Introduction", file),
+        MD_OUTPUT, execute=false, documenter=true)
+    Literate.notebook(joinpath(REPO, "src", "Introduction", file),
+        NB_OUTPUT, execute=false, documenter=true)
+end
