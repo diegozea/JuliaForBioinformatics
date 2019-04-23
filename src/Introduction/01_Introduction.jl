@@ -1,5 +1,8 @@
 # # Introduction
 #
+#md # [![](https://mybinder.org/badge_logo.svg)](@__BINDER_ROOT_URL__notebooks/Introduction/01_Introduction.ipynb)
+#md # [![](https://img.shields.io/badge/show-nbviewer-579ACA.svg)](@__NBVIEWER_ROOT_URL__notebooks/Introduction/01_Introduction.ipynb)
+#
 # Let's start with a classic:
 
 message = "Hello World!"
