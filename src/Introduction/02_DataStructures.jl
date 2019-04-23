@@ -37,31 +37,56 @@ end
 using Test
 A = [1.25, 2.0, 3.6]
 B = [-3.5, 4.7, 5.0]
-@test distance(A, B) ≈ 23.791849576062805
-@test distance(B, B) ≈ 0.0
+@test distance(A, B) ≈ hypot((A - B)...)
+
+# `...` "splats" the values contained in an iterable collection into a
+# function call as individual arguments, e.g:
+
+vector = [1, 2, 3]
+hypot(vector...)  ## hypot(1, 2, 3)
+
+# You can use `push!` to add one element to the end of an array
+
+vector = [1,2,3]
+
+#-
+push!(vector, 4)
+
+# There are other useful
+# [dequeues functions](https://docs.julialang.org/en/v1/base/collections/#Dequeues-1)
+# defined in Julia, e.g. `pop!`, `append!`.
+#
+# In Julia, by convention, all the functions that modify their arguments
+# should end with a bang, `!`, see the
+# [style guide](https://docs.julialang.org/en/v1/manual/style-guide/index.html#Append-!-to-names-of-functions-that-modify-their-arguments-1).
 
 # ### Vectorized operations
 #
-# You can use a `.` to indicate that a function or operator should be applied
-# element by element:
+# You can use a dot, `.`,  to indicate that a function, e.g. `log.(...)`, or
+# operator, e.g. `.^`,  should be applied element by element, see
+# [dot syntax](https://docs.julialang.org/en/v1/manual/functions/#man-vectorized-1):
 
-A = [1.25, 2.0, 3.6]
-B = [-3.5, 4.7, 5.0]
-AB = A .- B
+a = [1, -2, -3]
+b = [-2, -4, 0]
+a .* b
 
-#-
+# This notation allows vectorizing any function, even element-wise functions
+# defined by the user:
 
-AB.^2
+fun(x) = 3.45x + 4.76
 
-# Multiple vectorized operations get fused in a single loop (without temporal
-# arrays like AB):
+fun.(sin.(a))
 
-(A .- B).^2
+# Multiple vectorized operations get
+# [fused in a single loop](https://julialang.org/blog/2017/01/moredots)
+# without temporal arrays.
 
-# This allows to vectorize any function defined by the user:
+# ### Comprehensions
+#
+# You can use [comprehensions](https://docs.julialang.org/en/v1/manual/arrays/#Comprehensions-1)
+# to create arrays and perform some operation
 
-f(x) = 3.45x + 4.76
-f.(A)
+[ 2x for x in 1:10 if x % 2 == 0 ]
 
 # ### Matrices
 #
@@ -85,6 +110,13 @@ matrix[3, 3]
 
 matrix[2:end, :]
 
+# #### Comprehensions
+#
+# You can also use comprehensions to create matrices. In fact, you can create
+# array of any desired dimension:
+
+[ x + y for x in 1:5, y in 1:10 ]
+
 # ## Dictionaries and pairs
 #
 # Dictionaries (hash tables) stores key => values pairs:
@@ -105,14 +137,14 @@ dictionary['N']
 get(dictionary, 'N', '-')
 
 # A nice thing about hash tables (dictionary keys, sets) is that test
-# membership is O(1) while it is O(N) in lists/vectors/arrays:
+# membership is $O(1)$ while it is $O(N)$ in lists/vectors/arrays:
 
 'N' in keys(dictionary)
 
 # A dictionary gives pairs when it is iterated:
 
 for pair in dictionary
-	println(pair)  ## each pair is key => value
+	println("pair: ", pair)  ## each pair is key => value
 	println("key: ", pair.first)  ## pair.first == pair[1]
 	println("value: ", pair.second)  ## pair.second == pair[2]
 end
@@ -128,6 +160,9 @@ point
 #-
 
 point = (1.0, 2.0, 3.0)  ## tuple
+
+#-
+
 point[1] = 10.0
 
 # You can index a tuple, like a vector, to get the stored element(s):
@@ -146,6 +181,19 @@ for (key, value) in dictionary
 	println("key: ", key, " value: ", value)
 end
 
+# #### Exercise 2
+#
+# Write a function to return the reverse complement of a DNA sequence (string)
+# using a dictionary, the `join` function and the `Base.Iterators.reverse`
+# iterator. It should use a 'N' as complementary of any base different from
+# 'A', 'C', 'T' or 'G':
+
+## reverse_complement(...
+
+#-
+
+@assert reverse_complement("ACTGGTCCCNT") == "ANGGGACCAGT"
+
 # ### Named tuples
 #
 # They can be an easy and fast way to store data:
@@ -157,37 +205,26 @@ point = (x=1.0, y=2.0, z=3.0)  ## named tuple
 point.y
 
 # ## Sets
+#
+# You can use `Set` to represent a set of unique elements:
 
 set = Set([1, 2, 2, 3, 3, 3, 4, 4, 4, 4])
 
-#-
+# Test membership is $O(1)$
 
-for element in set
-	println(element)
-end
+4 in set
 
-#-
+# You can get the intersection of two sets using `intersect` or
+# `∩` (`\cap<TAB>`)
 
-1 in set
+set_a = Set([1, 2, 3])
+set_b = Set([2, 3, 4])
+set_a ∩ set_b  ## intersect(set, set_b)
 
-#-
+# And the unioin of to sets using `union` or `∪` (`\cup<TAB>`)
 
-set_b = Set([-1, 0, 1, 2])
-set ∩ set_b  ## intersect(set, set_b)
+set_a ∪ set_b  ## union(set, set_b)
 
+# The symmetric difference, i.e. disjunctive union, of two sets
 
-# `\cap`
-
-set ∪ set_b  ## union(set, set_b)
-
-# `\cup`
-
-symdiff(set, set_b)
-
-#-
-
-union!(set, set_b)
-
-#-
-
-set
+symdiff(set_a, set_b)

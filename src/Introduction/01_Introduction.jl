@@ -22,7 +22,7 @@ r = 10
 C = 2π*r
 
 # `π` is one of the
-# [mathematical constants](https://docs.julialang.org/en/v1.1/base/numbers/#General-Number-Functions-and-Constants)
+# [mathematical constants](https://docs.julialang.org/en/v1.1/base/numbers/#General-Number-Functions-and-Constants-1)
 # defined in Julia. You can write `π` by typing `\pi` and pressing `<TAB>` in
 # the REPL:
 
@@ -30,7 +30,7 @@ C = 2π*r
 
 # The multiplication operator `*` is not needed when a literal number
 # (e.g. `2`) is placed just before a variable or constant (e.g. `π`),
-# see [*Numeric Literal Coefficients*](https://docs.julialang.org/en/v1.1/manual/integers-and-floating-point-numbers/#man-numeric-literal-coefficients).
+# see [*Numeric Literal Coefficients*](https://docs.julialang.org/en/v1.1/manual/integers-and-floating-point-numbers/#man-numeric-literal-coefficients-1).
 # That makes polynomial expressions much cleaner:
 
 f(x) = 1.56 + 2.24x + 3.47x^2
@@ -187,7 +187,7 @@ is_dna("ACHL")
 
 ## has_n(...
 
-# `@testset` is useful to aggregate tests for a particular feature:
+# `@testset` is useful to aggregate tests for a particular functionality:
 
 using Test
 @testset "Exercise 2" begin
@@ -198,6 +198,6 @@ end
 # #### Material
 #
 # You can find more complete information about
-# [functions](https://docs.julialang.org/en/v1.1/manual/functions/) 
+# [functions](https://docs.julialang.org/en/v1.1/manual/functions/)
 # and [control flow](https://docs.julialang.org/en/v1.1/manual/control-flow/)
 # statements in the Julia manual.
