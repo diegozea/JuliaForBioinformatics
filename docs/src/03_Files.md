@@ -4,6 +4,9 @@ EditURL = "https://github.com/TRAVIS_REPO_SLUG/blob/master/"
 
 # Working with Files
 
+[![](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/TRAVIS_REPO_SLUG/gh-pages?filepath=TRAVIS_TAG/Introduction/03_Files.ipynb)
+[![](https://img.shields.io/badge/show-nbviewer-579ACA.svg)](https://nbviewer.jupyter.org/github/TRAVIS_REPO_SLUG/blob/gh-pages/TRAVIS_TAG/Introduction/03_Files.ipynb)
+
 Often, bioinformatic pipelines imply to manipulate text files. Here, we are
 going to parse a very simple FASTA file just as an example.
 

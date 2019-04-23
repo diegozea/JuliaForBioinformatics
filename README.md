@@ -13,18 +13,18 @@
 
 ## Installation
 
-For this workshop you need to install:
+For the first day of the workshop you need to install:
 
-- [**Julia 1.1**](https://julialang.org/downloads/)  
+- [Julia 1.1](https://julialang.org/downloads/)  
 
-- This package:  
+- This package with the IJulia notebooks we are going to use:  
 ```julia
 using Pkg
 pkg"add https://github.com/diegozea/JuliaForBioinformatics.git"
 ```
 
 - [IJulia](https://github.com/JuliaLang/IJulia.jl):  
-```
+```julia
 using Pkg
 pkg"add IJulia"
 ```

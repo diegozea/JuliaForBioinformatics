@@ -4,6 +4,9 @@ EditURL = "https://github.com/TRAVIS_REPO_SLUG/blob/master/"
 
 # Statistics
 
+[![](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/TRAVIS_REPO_SLUG/gh-pages?filepath=TRAVIS_TAG/notebooks/04_DataStructures.ipynb)
+[![](https://img.shields.io/badge/show-nbviewer-579ACA.svg)](https://nbviewer.jupyter.org/github/TRAVIS_REPO_SLUG/blob/gh-pages/TRAVIS_TAG/Introduction/04_DataStructures.ipynb)
+
 ## Missing values
 
 Julia, like R, has a value to represent

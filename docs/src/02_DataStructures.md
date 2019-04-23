@@ -4,6 +4,9 @@ EditURL = "https://github.com/TRAVIS_REPO_SLUG/blob/master/"
 
 # Data Structures
 
+[![](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/TRAVIS_REPO_SLUG/gh-pages?filepath=TRAVIS_TAG/Introduction/02_DataStructures.ipynb)
+[![](https://img.shields.io/badge/show-nbviewer-579ACA.svg)](https://nbviewer.jupyter.org/github/TRAVIS_REPO_SLUG/blob/gh-pages/TRAVIS_TAG/Introduction/02_DataStructures.ipynb)
+
 ## Arrays
 
 Julia has a nice and flexible array interface. Arrays can have an arbitrary
