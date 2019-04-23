@@ -5,7 +5,7 @@ EditURL = "https://github.com/TRAVIS_REPO_SLUG/blob/master/"
 # Statistics
 
 [![](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/TRAVIS_REPO_SLUG/gh-pages?filepath=TRAVIS_TAG/notebooks/04_DataStructures.ipynb)
-[![](https://img.shields.io/badge/show-nbviewer-579ACA.svg)](https://nbviewer.jupyter.org/github/TRAVIS_REPO_SLUG/blob/gh-pages/TRAVIS_TAG/Introduction/04_DataStructures.ipynb)
+[![](https://img.shields.io/badge/show-nbviewer-579ACA.svg)](https://nbviewer.jupyter.org/github/TRAVIS_REPO_SLUG/blob/gh-pages/TRAVIS_TAG/notebooks/04_DataStructures.ipynb)
 
 ## Missing values
 
@@ -65,17 +65,12 @@ NCBI tax_id(s), scientific_name(s) and chain type for each PDB chain that
 has been processed in the SIFTS database. This table should be downloaded
 from the [SIFTS site](https://www.ebi.ac.uk/pdbe/docs/sifts/quick.html).
 
-```@example 04_Stats
-#```julia
-#table_path = download(
-```
+```julia
+table_path = download(
+    "ftp://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/tsv/pdb_chain_taxonomy.tsv.gz",
+    "pdb_chain_taxonomy.tsv.gz")
 
-   "ftp://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/tsv/pdb_chain_taxonomy.tsv.gz",
-   "pdb_chain_taxonomy.tsv.gz")
-
-```@example 04_Stats
-#run(`gunzip $table_path`)
-#```
+run(`gunzip $table_path`)
 ```
 
 If that fails, you can use the first lines stored in the data folder:
@@ -83,10 +78,9 @@ If that fails, you can use the first lines stored in the data folder:
 using  JuliaForBioinformatics
 data_path = abspath(pathof(JuliaForBioinformatics), "..", "..", "data")
 table_path = joinpath(data_path, "pdb_chain_taxonomy_head.tsv")
+```
 
 ```@example 04_Stats; continued = true
-#```
-
 df = CSV.read("pdb_chain_taxonomy.tsv",
     header = 2,  ## the header is in the second line
     delim = '\t',  ## delimiter is TAB instead of ','

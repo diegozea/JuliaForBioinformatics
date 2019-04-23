@@ -1,7 +1,7 @@
 # # Statistics
 #
 #md # [![](https://mybinder.org/badge_logo.svg)](@__BINDER_ROOT_URL__notebooks/04_DataStructures.ipynb)
-#md # [![](https://img.shields.io/badge/show-nbviewer-579ACA.svg)](@__NBVIEWER_ROOT_URL__Introduction/04_DataStructures.ipynb)
+#md # [![](https://img.shields.io/badge/show-nbviewer-579ACA.svg)](@__NBVIEWER_ROOT_URL__notebooks/04_DataStructures.ipynb)
 #
 # ## Missing values
 #
@@ -51,20 +51,20 @@ using CSV
 # has been processed in the SIFTS database. This table should be downloaded
 # from the [SIFTS site](https://www.ebi.ac.uk/pdbe/docs/sifts/quick.html).
 #
-#```julia
-#table_path = download(
-#    "ftp://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/tsv/pdb_chain_taxonomy.tsv.gz",
-#    "pdb_chain_taxonomy.tsv.gz")
+# ```julia
+# table_path = download(
+#     "ftp://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/tsv/pdb_chain_taxonomy.tsv.gz",
+#     "pdb_chain_taxonomy.tsv.gz")
 #
-#run(`gunzip $table_path`)
-#```
+# run(`gunzip $table_path`)
+# ```
 #
 # If that fails, you can use the first lines stored in the data folder:
 # ```julia
 # using  JuliaForBioinformatics
 # data_path = abspath(pathof(JuliaForBioinformatics), "..", "..", "data")
 # table_path = joinpath(data_path, "pdb_chain_taxonomy_head.tsv")
-#```
+# ```
 
 df = CSV.read("pdb_chain_taxonomy.tsv",
     header = 2,  ## the header is in the second line
