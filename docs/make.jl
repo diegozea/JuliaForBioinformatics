@@ -15,10 +15,10 @@ makedocs(;
         ]
     ],
     repo="https://github.com/diegozea/JuliaForBioinformatics.jl/blob/{commit}{path}#L{line}",
-    sitename="JuliaForBioinformatics.jl",
+    sitename="JuliaForBioinformatics",
     authors="Diego Javier Zea"
 )
 
 deploydocs(;
-    repo="github.com/diegozea/JuliaForBioinformatics.jl",
+    repo="github.com/diegozea/JuliaForBioinformatics",
 )
