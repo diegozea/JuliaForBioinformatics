@@ -4,7 +4,7 @@ include("literate.jl")
 
 makedocs(;
     modules=[JuliaForBioinformatics],
-    format=Documenter.HTML(),
+    format=Documenter.HTML(prettyurls = get(ENV, "CI", nothing) == "true"),
     pages=[
         "Home" => "index.md",
         "Introduction" => [
@@ -14,7 +14,7 @@ makedocs(;
             "04_Stats.md"
         ]
     ],
-    repo="https://github.com/diegozea/JuliaForBioinformatics.jl/blob/{commit}{path}#L{line}",
+    # repo="https://github.com/diegozea/JuliaForBioinformatics.jl/blob/{commit}{path}#L{line}",
     sitename="JuliaForBioinformatics",
     authors="Diego Javier Zea"
 )

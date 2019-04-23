@@ -1,6 +1,6 @@
 using Literate, JuliaForBioinformatics
 
-DOCS = joinpath(@__DIR__)
+DOCS = @__DIR__
 REPO = abspath(DOCS, "..")
 MD_OUTPUT = joinpath(DOCS, "src")
 NB_OUTPUT = joinpath(DOCS, "notebooks")
