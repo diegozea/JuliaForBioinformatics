@@ -41,6 +41,10 @@ the REPL:
 π
 ```
 
+```@example 01_Introduction
+pi
+```
+
 The multiplication operator `*` is not needed when a literal number
 (e.g. `2`) is placed just before a variable or constant (e.g. `π`),
 see [*Numeric Literal Coefficients*](https://docs.julialang.org/en/v1.1/manual/integers-and-floating-point-numbers/#man-numeric-literal-coefficients-1).
@@ -74,8 +78,9 @@ using Test
 ```
 
 The `Test` module exports the `@test` macro, useful for writing unit tests of
-the code. We are going to use `≈` (`isapprox`) test if two values can be
-equal taking into account floating point errors. :
+the code. We are going to use `≈`, `\approx<TAB>`, (`a ≈ b` or
+`isapprox(a, b)`) test if two values can be equal taking into account
+floating point errors. :
 
 ```@example 01_Introduction
 @test hypotenuse(2, 5) ≈ hypot(2, 5)
@@ -93,9 +98,9 @@ distance = hypot(1.0, 3.0, 2.5)
 ```
 
 ```@example 01_Introduction
-if distance <= 2.08  ## Å
+if distance <= 2.08  # Å
     "Disulphide"
-elseif distance <= 6  ## Å
+elseif distance <= 6  # Å
     "Contact"
 else
     "Not interacting"
@@ -112,20 +117,42 @@ condition = true
 condition && println("It's true!")
 ```
 
+#### Exercise 2
+
+Can you write the equivalent expression using `if` ?
+
+```@example 01_Introduction
+# if ...
+```
+
 ### Ternary operator
 
 ```@example 01_Introduction
 condition = true
-condition ? "👍" : "👎"
+result = condition ? "👍" : "👎"
 ```
 
-## `for`
+This is equivalent to:
 
 ```@example 01_Introduction
-dna = "ATGCAT"  ## dna is a string
+result = if condition
+        "👍"
+    else
+        "👎"
+end
+```
+
+```@example 01_Introduction
+result
+```
+
+## `for` loops
+
+```@example 01_Introduction
+dna = "ATGCAT"  # dna is a string
 
 for base in dna
-    println(base)  ## base is a character
+    println(base)  # base is a character
 end
 ```
 
@@ -148,7 +175,7 @@ and pressing the `<TAB>` key.
 
 ```@example 01_Introduction
 "Return the number of codons in the sequence."
-codon_number(seq) = div(length(seq), 3)
+codon_number(seq) = div(length(seq), 3) # This is a Julia comment
 ```
 
 A strings before the function declaration is used as docstring. You can access
@@ -172,12 +199,12 @@ Functions with longer bodies are defined using the `function` keyword:
 function count_gc(string)
     count = 0
     for char in string
-        if char == 'C' || char == 'G'  ## || is the short-circuiting or.
+        if char == 'C' || char == 'G'  # || is the short-circuiting or.
             # ' ' (instead of " ") is used to define a character.
-            count += 1  ## i.e. count = count + 1
+            count += 1  # i.e. count = count + 1
         end
     end
-    count  ## i.e. return count
+    count  # i.e. return count
 end
 ```
 
@@ -220,7 +247,7 @@ docstrings.
 ?is_dna
 ```
 
-#### Exercise 2
+#### Exercise 3
 
 Write a function that returns `true` if the given string (argument) has at
 least one `N` using the keywords `function`, `for`, `if` and `return`.
@@ -233,7 +260,7 @@ least one `N` using the keywords `function`, `for`, `if` and `return`.
 
 ```@example 01_Introduction
 using Test
-@testset "Exercise 2" begin
+@testset "Exercise 3" begin
     @test has_n("ACTGN")
     @test !has_n("ACTG")
 end

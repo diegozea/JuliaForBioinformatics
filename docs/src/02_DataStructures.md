@@ -34,7 +34,19 @@ Use ranges (`start:end`) to get a slice of the array:
 vector[2:4]
 ```
 
-Julia arrays, like the strings, are iterables:
+Ranges in Julia are iterable objects:
+
+```@example 02_DataStructures
+indexes = 2:4
+```
+
+```@example 02_DataStructures
+for i in indexes
+	@show i
+end
+```
+
+Julia arrays, like the strings and ranges, are also iterables:
 
 ```@example 02_DataStructures
 for element in vector
@@ -44,11 +56,12 @@ end
 
 #### Exercise 1
 
-Write a function to return the distance between two three dimensional points
-using a for loop and indexing the vectors.
+Write a function to return the distance between two three dimensional points,
+i.e. two vector of three elements. You should use a `for` loop over a range
+and index the vectors.
 
 ```@example 02_DataStructures
-# distance(...
+# function distance(a, b...
 ```
 
 ```@example 02_DataStructures
@@ -63,7 +76,7 @@ function call as individual arguments, e.g:
 
 ```@example 02_DataStructures
 vector = [1, 2, 3]
-hypot(vector...)  ## hypot(1, 2, 3)
+hypot(vector...)  # hypot(1, 2, 3)
 ```
 
 You can use `push!` to add one element to the end of an array
@@ -81,13 +94,13 @@ There are other useful
 defined in Julia, e.g. `pop!`, `append!`.
 
 In Julia, by convention, all the functions that modify their arguments
-should end with a bang, `!`, see the
+should end with a bang or exclamation mark, `!`, see the
 [style guide](https://docs.julialang.org/en/v1/manual/style-guide/index.html#Append-!-to-names-of-functions-that-modify-their-arguments-1).
 
 ### Vectorized operations
 
-You can use a dot, `.`,  to indicate that a function, e.g. `log.(...)`, or
-operator, e.g. `.^`,  should be applied element by element, see
+You can use a dot, `.`,  to indicate that a function, e.g. `log.(x)`, or
+operator, e.g. `x .^ y`,  should be applied element by element, see
 [dot syntax](https://docs.julialang.org/en/v1/manual/functions/#man-vectorized-1):
 
 ```@example 02_DataStructures
@@ -100,9 +113,9 @@ This notation allows vectorizing any function, even element-wise functions
 defined by the user:
 
 ```@example 02_DataStructures
-fun(x) = 3.45x + 4.76
+f(x) = 3.45x + 4.76
 
-fun.(sin.(a))
+f.(sin.(a))
 ```
 
 Multiple vectorized operations get
@@ -115,7 +128,20 @@ You can use [comprehensions](https://docs.julialang.org/en/v1/manual/arrays/#Com
 to create arrays and perform some operation
 
 ```@example 02_DataStructures
-[ 2x for x in 1:10 if x % 2 == 0 ]
+[ 2x for x in 1:10 ]
+```
+
+```@example 02_DataStructures
+result = [ 2x for x in 1:10 if x % 2 == 0 ]
+```
+
+#### Exercise 3
+
+Write the equivalent of the previous expression using a `for` loop and `push!`.
+
+```@example 02_DataStructures
+# result = []
+# for ...
 ```
 
 ### Matrices
@@ -132,13 +158,13 @@ You can use linear indexing (Julia arrays are stored in column major order)
 to access an element
 
 ```@example 02_DataStructures
-matrix[9]
+matrix[2]
 ```
 
 Or using one index by dimension, i.e. `matrix[row_index, col_index]` :
 
 ```@example 02_DataStructures
-matrix[3, 3]
+matrix[2, 1]
 ```
 
 You can also use ranges and `end`. The colon, `:`, means that all the indices
@@ -168,16 +194,16 @@ dictionary = Dict('A' => 'T', 'C' => 'G', 'T' => 'A', 'G' => 'C')
 You can get a value by indexing with the key:
 
 ```@example 02_DataStructures
-dictionary['A']
+dictionary['A'] # get(dictionary, 'A')
 ```
 
 If the key is not present in the dictionary, an error is raised:
 
 ```@example 02_DataStructures
-dictionary['N']
+dictionary['N'] # get(dictionary, 'N')
 ```
 
-The function `get` allows to specify and default value that is returned is
+The function `get` allows to specify a default value that is returned if
 the key is absent in the dictionary:
 
 ```@example 02_DataStructures
@@ -195,9 +221,9 @@ A dictionary gives pairs when it is iterated:
 
 ```@example 02_DataStructures
 for pair in dictionary
-	println("pair: ", pair)  ## each pair is key => value
-	println("key: ", pair.first)  ## pair.first == pair[1]
-	println("value: ", pair.second)  ## pair.second == pair[2]
+	println("pair: ", pair)  # each pair is key => value
+	println("key: ", pair.first)  # pair.first == pair[1]
+	println("value: ", pair.second)  # pair.second == pair[2]
 end
 ```
 
@@ -206,13 +232,13 @@ end
 Tuples are immutable collections, while arrays are mutable:
 
 ```@example 02_DataStructures
-point = [1.0, 2.0, 3.0]  ## vector
+point = [1.0, 2.0, 3.0]  # vector
 point[1] = 10.0
 point
 ```
 
 ```@example 02_DataStructures
-point = (1.0, 2.0, 3.0)  ## tuple
+point = (1.0, 2.0, 3.0)  # tuple
 ```
 
 ```@example 02_DataStructures
@@ -241,7 +267,7 @@ for (key, value) in dictionary
 end
 ```
 
-#### Exercise 2
+#### Exercise 3
 
 Write a function to return the reverse complement of a DNA sequence (string)
 using a dictionary, the `join` function and the `Base.Iterators.reverse`
@@ -249,11 +275,12 @@ iterator. It should use a 'N' as complementary of any base different from
 'A', 'C', 'T' or 'G':
 
 ```@example 02_DataStructures
-# reverse_complement(...
+# function reverse_complement(...
 ```
 
 ```@example 02_DataStructures
-@assert reverse_complement("ACTGGTCCCNT") == "ANGGGACCAGT"
+using Test
+@test reverse_complement("ACTGGTCCCNT") == "ANGGGACCAGT"
 ```
 
 ### Named tuples
@@ -261,7 +288,7 @@ iterator. It should use a 'N' as complementary of any base different from
 They can be an easy and fast way to store data:
 
 ```@example 02_DataStructures
-point = (x=1.0, y=2.0, z=3.0)  ## named tuple
+point = (x=1.0, y=2.0, z=3.0)  # named tuple
 ```
 
 You can use `namedtuple.name` to access a particular element:
@@ -290,13 +317,13 @@ You can get the intersection of two sets using `intersect` or
 ```@example 02_DataStructures
 set_a = Set([1, 2, 3])
 set_b = Set([2, 3, 4])
-set_a ∩ set_b  ## intersect(set, set_b)
+set_a ∩ set_b  # intersect(set, set_b)
 ```
 
 And the unioin of to sets using `union` or `∪` (`\cup<TAB>`)
 
 ```@example 02_DataStructures
-set_a ∪ set_b  ## union(set, set_b)
+set_a ∪ set_b  # union(set, set_b)
 ```
 
 The symmetric difference, i.e. disjunctive union, of two sets
