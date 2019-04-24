@@ -22,7 +22,17 @@ vector[end]
 
 vector[2:4]
 
-# Julia arrays, like the strings, are iterables:
+# Ranges in Julia are iterable objects:
+
+indexes = 2:4
+
+#-
+
+for i in indexes
+	@show i
+end
+
+# Julia arrays, like the strings and ranges, are also iterables:
 
 for element in vector
 	println(element)
@@ -30,10 +40,11 @@ end
 
 # #### Exercise 1
 #
-# Write a function to return the distance between two three dimensional points
-# using a for loop and indexing the vectors.
+# Write a function to return the distance between two three dimensional points,
+# i.e. two vector of three elements. You should use a `for` loop over a range
+# and index the vectors.
 
-## distance(...
+## function distance(a, b...
 
 #-
 
@@ -46,7 +57,7 @@ B = [-3.5, 4.7, 5.0]
 # function call as individual arguments, e.g:
 
 vector = [1, 2, 3]
-hypot(vector...)  ## hypot(1, 2, 3)
+hypot(vector...)  # hypot(1, 2, 3)
 
 # You can use `push!` to add one element to the end of an array
 
@@ -60,13 +71,13 @@ push!(vector, 4)
 # defined in Julia, e.g. `pop!`, `append!`.
 #
 # In Julia, by convention, all the functions that modify their arguments
-# should end with a bang, `!`, see the
+# should end with a bang or exclamation mark, `!`, see the
 # [style guide](https://docs.julialang.org/en/v1/manual/style-guide/index.html#Append-!-to-names-of-functions-that-modify-their-arguments-1).
 
 # ### Vectorized operations
 #
-# You can use a dot, `.`,  to indicate that a function, e.g. `log.(...)`, or
-# operator, e.g. `.^`,  should be applied element by element, see
+# You can use a dot, `.`,  to indicate that a function, e.g. `log.(x)`, or
+# operator, e.g. `x .^ y`,  should be applied element by element, see
 # [dot syntax](https://docs.julialang.org/en/v1/manual/functions/#man-vectorized-1):
 
 a = [1, -2, -3]
@@ -76,9 +87,9 @@ a .* b
 # This notation allows vectorizing any function, even element-wise functions
 # defined by the user:
 
-fun(x) = 3.45x + 4.76
+f(x) = 3.45x + 4.76
 
-fun.(sin.(a))
+f.(sin.(a))
 
 # Multiple vectorized operations get
 # [fused in a single loop](https://julialang.org/blog/2017/01/moredots)
@@ -89,7 +100,18 @@ fun.(sin.(a))
 # You can use [comprehensions](https://docs.julialang.org/en/v1/manual/arrays/#Comprehensions-1)
 # to create arrays and perform some operation
 
-[ 2x for x in 1:10 if x % 2 == 0 ]
+[ 2x for x in 1:10 ]
+
+#-
+
+result = [ 2x for x in 1:10 if x % 2 == 0 ]
+
+# #### Exercise 3
+#
+# Write the equivalent of the previous expression using a `for` loop and `push!`.
+
+## result = []
+## for ...
 
 # ### Matrices
 #
@@ -102,11 +124,11 @@ matrix = [ 1.0 4.0 7.0
 # You can use linear indexing (Julia arrays are stored in column major order)
 # to access an element
 
-matrix[9]
+matrix[2]
 
 # Or using one index by dimension, i.e. `matrix[row_index, col_index]` :
 
-matrix[3, 3]
+matrix[2, 1]
 
 # You can also use ranges and `end`. The colon, `:`, means that all the indices
 # from that dimension should be used:
@@ -128,13 +150,13 @@ dictionary = Dict('A' => 'T', 'C' => 'G', 'T' => 'A', 'G' => 'C')
 
 # You can get a value by indexing with the key:
 
-dictionary['A']
+dictionary['A'] # get(dictionary, 'A')
 
 # If the key is not present in the dictionary, an error is raised:
 
-dictionary['N']
+dictionary['N'] # get(dictionary, 'N')
 
-# The function `get` allows to specify and default value that is returned is
+# The function `get` allows to specify a default value that is returned if
 # the key is absent in the dictionary:
 
 get(dictionary, 'N', '-')
@@ -147,22 +169,22 @@ get(dictionary, 'N', '-')
 # A dictionary gives pairs when it is iterated:
 
 for pair in dictionary
-	println("pair: ", pair)  ## each pair is key => value
-	println("key: ", pair.first)  ## pair.first == pair[1]
-	println("value: ", pair.second)  ## pair.second == pair[2]
+	println("pair: ", pair)  # each pair is key => value
+	println("key: ", pair.first)  # pair.first == pair[1]
+	println("value: ", pair.second)  # pair.second == pair[2]
 end
 
 # ## Tuples
 #
 # Tuples are immutable collections, while arrays are mutable:
 
-point = [1.0, 2.0, 3.0]  ## vector
+point = [1.0, 2.0, 3.0]  # vector
 point[1] = 10.0
 point
 
 #-
 
-point = (1.0, 2.0, 3.0)  ## tuple
+point = (1.0, 2.0, 3.0)  # tuple
 
 #-
 
@@ -184,24 +206,25 @@ for (key, value) in dictionary
 	println("key: ", key, " value: ", value)
 end
 
-# #### Exercise 2
+# #### Exercise 3
 #
 # Write a function to return the reverse complement of a DNA sequence (string)
 # using a dictionary, the `join` function and the `Base.Iterators.reverse`
 # iterator. It should use a 'N' as complementary of any base different from
 # 'A', 'C', 'T' or 'G':
 
-## reverse_complement(...
-
+## function reverse_complement(...
+ 
 #-
 
-@assert reverse_complement("ACTGGTCCCNT") == "ANGGGACCAGT"
+using Test
+@test reverse_complement("ACTGGTCCCNT") == "ANGGGACCAGT"
 
 # ### Named tuples
 #
 # They can be an easy and fast way to store data:
 
-point = (x=1.0, y=2.0, z=3.0)  ## named tuple
+point = (x=1.0, y=2.0, z=3.0)  # named tuple
 
 # You can use `namedtuple.name` to access a particular element:
 
@@ -222,11 +245,11 @@ set = Set([1, 2, 2, 3, 3, 3, 4, 4, 4, 4])
 
 set_a = Set([1, 2, 3])
 set_b = Set([2, 3, 4])
-set_a ∩ set_b  ## intersect(set, set_b)
+set_a ∩ set_b  # intersect(set, set_b)
 
 # And the unioin of to sets using `union` or `∪` (`\cup<TAB>`)
 
-set_a ∪ set_b  ## union(set, set_b)
+set_a ∪ set_b  # union(set, set_b)
 
 # The symmetric difference, i.e. disjunctive union, of two sets
 

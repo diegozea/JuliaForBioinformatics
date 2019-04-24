@@ -89,7 +89,7 @@ df[df[:TAX_ID] .== 9606, [:PDB, :CHAIN]] |> unique
 count_df = by(df, :TAX_ID, Count = :TAX_ID => length)
 sort!(count_df, :Count, rev=true)
 
-# Exercice 1
+# #### Exercice 1
 #
 # What are the species with more PDBs (not PDB chains)?
 #
