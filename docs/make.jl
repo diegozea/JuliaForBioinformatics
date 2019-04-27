@@ -10,8 +10,11 @@ makedocs(;
         "Introduction" => [
             "01_Introduction.md"
             "02_DataStructures.md"
-            "03_Files.md"
-            "04_Stats.md"
+            "03_Files_Homework.md"
+        ],
+        "Advance" => [
+            "04_Strings.md"
+            "05_Stats.md"
         ]
     ],
     # repo="https://github.com/diegozea/JuliaForBioinformatics.jl/blob/{commit}{path}#L{line}",

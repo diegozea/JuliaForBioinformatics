@@ -1,7 +1,7 @@
-# # Working with Files
+# # HOMEWORK: Working with Files
 #
-#md # [![](https://mybinder.org/badge_logo.svg)](@__BINDER_ROOT_URL__notebooks/03_Files.ipynb)
-#md # [![](https://img.shields.io/badge/show-nbviewer-579ACA.svg)](@__NBVIEWER_ROOT_URL__notebooks/03_Files.ipynb)
+#md # [![](https://mybinder.org/badge_logo.svg)](@__BINDER_ROOT_URL__notebooks/03_Files_Homework.ipynb)
+#md # [![](https://img.shields.io/badge/show-nbviewer-579ACA.svg)](@__NBVIEWER_ROOT_URL__notebooks/03_Files_Homework.ipynb)
 #
 # Often, bioinformatic pipelines imply to manipulate text files. Here, we are
 # going to parse a very simple FASTA file just as an example.
@@ -30,7 +30,7 @@ open(fasta_file, "r") do file
     end
 end
 
-# #### Exercise 1
+# #### Homework
 #
 # Write a function to read the FASTA file into a dictionary from the
 # sequence/isoform UniProt name, i.e. the one between `|`, to the sequence.
@@ -56,34 +56,3 @@ strip("  Hello world!  ")
 ## function read_fasta(...)
 ##     ...
 ## end
-
-# ## Regex
-#
-# You can also use [regular expressions](https://docs.julialang.org/en/v1/manual/strings/#Regular-Expressions-1).
-# They are very useful to parse text files.
-
-line = ">sp|O43521|B2L11_HUMAN Bcl-2-like protein 11 OS=Homo sapiens OX=9606 GN=BCL2L11 PE=1 SV=1"
-
-#-
-
-regex = r"^>\w+\|(\w+)\|"
-
-#-
-
-m = match(regex, line)
-
-#-
-
-if m !== nothing
-    println(m[1])
-end
-
-# ## String interpolation
-#
-# You can [interpolate values](https://docs.julialang.org/en/v1/manual/strings/#string-interpolation-1),
-# single variables or the result of more complex expressions, into
-# strings using `$`:
-
-a = 1
-b = 2
-"$a + $b is $(a + b)"
