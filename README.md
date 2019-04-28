@@ -12,7 +12,7 @@ You can see the on-line material from: [![Dev](https://img.shields.io/badge/docs
 
 ## Installation
 
-For the first and second days of the workshop you need to install:
+For the first and **second** day of the workshop you need to install:
 
 - [Julia 1.1](https://julialang.org/downloads/)  
 
