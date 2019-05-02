@@ -128,6 +128,7 @@ say_my_type(Float64[1 3 5; 2 4 6])
 
 # ### Julia compiler
 #
+# ![](JuliaCompiler.png)
 # TODO:
 # https://slides.com/valentinchuravy/julia-parallelism#/
 # https://github.com/diegozea/ADayWithJulia
