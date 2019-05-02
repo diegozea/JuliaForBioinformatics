@@ -126,20 +126,88 @@ say_my_type(Float64[1 3 5; 2 4 6])
 
 ## ... text array with ... dimensions and ... unique values ...
 
+# ### Which method is being used?
+#
+# You can use the `@which` macro to ask Julia which particular method is being
+# used
+
+@which say_my_type(2 + 0im)
+
+#-
+
+@which say_my_type(2.0)
+
 # ### Julia compiler
 #
+# Julia uses Just-in-time (JIT) compilation to achieve close to C performance.
+# After selecting the most specific method, Julia (generally) compiles the
+# method for the particular argument types.
+#
+# Because of that, the first time a function is called, it is compiled (slow).
+# If you call the same function a second time with the same argument types, it
+# will use the already compiled code (fast).
+
+@time sum(1:10_000)
+
+#-
+
+@time sum(1:10_000)
+
+# While compilation times can be annoying sometimes, this mechanism allows
+# Julia generality, composability and its capacity to generate efficient code
+# for user-defined types. That's mean that you do not need to use built-in
+# types or functions or to code some parts in C/Fortran to get a good
+# performance like in other high-level languages.
+#
+# Also, Julia represents its own code as a Julia data structure. This allows a
+# program to transform and generate its own code, using **macros** and
+# **generated functions**, for example, and powerful reflection capabilities
+# to explore the internals of a program. You can read the
+# [metaprogramming section of the manual](https://docs.julialang.org/en/v1/manual/metaprogramming/)
+# to learn more about this topic.
+#
 # ![](JuliaCompiler.png)
-# TODO:
-# https://slides.com/valentinchuravy/julia-parallelism#/
-# https://github.com/diegozea/ADayWithJulia
-# https://nbviewer.jupyter.org/github/diegozea/DesarrollandoEnJulia/blob/617bd1bf6481450222dcf919004dd266a2dfcc36/notebooks/Desarrollo%20de%20paquetes%20en%20el%20lenguaje%20Julia.ipynb
+#
 
+function sum_numbers(vector)
+    total = 0
+    for value in vector
+        total += value
+    end
+    total
+end
 
+# To avoid performance issues for using a
+# [global variable](https://docs.julialang.org/en/v1/manual/performance-tips/index.html#Avoid-global-variables-1)
+# we are going to define it as a constant using the
+# [const keyword.](https://docs.julialang.org/en/v1/base/base/#const)
 
+const rand_vector = rand(5)
 
+#-
 
+@code_lowered sum_numbers(rand_vector)
 
+#-
 
+@code_typed sum_numbers(rand_vector)
 
+#-
 
-dump(character) # dump shows every part of a value representation
+@code_warntype sum_numbers(rand_vector)
+
+#-
+
+@code_llvm sum_numbers(rand_vector)
+
+#-
+
+@code_native sum_numbers(rand_vector)
+
+# #### Exercise 2
+#
+# Modify the `sum_numbers` function to make it
+# [type stable](https://docs.julialang.org/en/v1/manual/performance-tips/#Write-%22type-stable%22-functions-1)
+# by using `zero` and `eltype`. Then compare the output of the previous
+# `@code_`* macros.
+#
