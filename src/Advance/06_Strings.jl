@@ -1,7 +1,7 @@
 # # Working with Strings
 #
-#md # [![](https://mybinder.org/badge_logo.svg)](@__BINDER_ROOT_URL__notebooks/04_Strings.ipynb)
-#md # [![](https://img.shields.io/badge/show-nbviewer-579ACA.svg)](@__NBVIEWER_ROOT_URL__notebooks/04_Strings.ipynb)
+#md # [![](https://mybinder.org/badge_logo.svg)](@__BINDER_ROOT_URL__notebooks/06_Strings.ipynb)
+#md # [![](https://img.shields.io/badge/show-nbviewer-579ACA.svg)](@__NBVIEWER_ROOT_URL__notebooks/06_Strings.ipynb)
 #
 # ## Regex
 #
