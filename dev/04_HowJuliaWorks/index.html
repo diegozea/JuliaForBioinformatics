@@ -61,10 +61,10 @@ say_my_type(test_array)</code></pre><p>Should print something like:</p><pre><cod
     ((Base.time_ns)() - #31#t0) / 1.0e9
 end</code></pre><p><img src="../JuliaCompiler.png" alt/></p><pre><code class="language-">@which 1.0 + 2.0</code></pre><pre><code class="language-">@which 1 + 2</code></pre><pre><code class="language-">@code_lowered 1.0 + 2.0</code></pre><pre><code class="language-">@code_typed 1.0 + 2.0</code></pre><pre><code class="language-">@code_llvm 1.0 + 2.0</code></pre><pre><code class="language-">@code_native 1.0 + 2.0</code></pre><p>Julia can do extra optimizations inside functions, e.g. constant propagation:</p><pre><code class="language-">f() = 1.0 + 2.0
 @code_typed f()</code></pre><h4><a class="nav-anchor" id="Exercise-2-1" href="#Exercise-2-1">Exercise 2</a></h4><p>Modify the <code>sum_numbers</code> function to make it <a href="https://docs.julialang.org/en/v1/manual/performance-tips/#Write-%22type-stable%22-functions-1">type stable</a> by using <code>zero</code> and <code>eltype</code>.</p><p>To avoid performance issues for using a <a href="https://docs.julialang.org/en/v1/manual/performance-tips/index.html#Avoid-global-variables-1">global variable</a> we are going to define it as a constant using the <a href="https://docs.julialang.org/en/v1/base/base/#const">const keyword.</a></p><pre><code class="language-julia">const rand_matrix = rand(4, 4)</code></pre><pre><code class="language-none">4×4 Array{Float64,2}:
- 0.516157    0.326043  0.585508  0.173589
- 0.710286    0.229615  0.759374  0.424312
- 0.00142086  0.718924  0.393916  0.789454
- 0.245016    0.301299  0.845484  0.55033 </code></pre><pre><code class="language-julia">function sum_numbers(numbers)
+ 0.0867763  0.737536  0.357463   0.417942  
+ 0.478288   0.266813  0.971046   0.00367641
+ 0.954046   0.631577  0.0566587  0.607138  
+ 0.611917   0.363168  0.24038    0.316843  </code></pre><pre><code class="language-julia">function sum_numbers(numbers)
     total = 0
     for value in numbers
         total += value
