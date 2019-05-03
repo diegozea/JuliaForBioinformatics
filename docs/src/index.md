@@ -1,12 +1,5 @@
 # JuliaForBioinformatics.jl
 
-```@index
-```
-
-```@autodocs
-Modules = [JuliaForBioinformatics]
-```
-
 ## Installation
 
 For the first and **second** day of the workshop you need to install:

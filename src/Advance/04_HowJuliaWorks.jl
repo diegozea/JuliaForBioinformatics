@@ -195,52 +195,51 @@ macroexpand(Main, :(@elapsed sum(1:10_000)))
 # ![](JuliaCompiler.png)
 #
 
-function sum_numbers(vector)
-    total = 0
-    for value in vector
-        total += value
-    end
-    total
-end
-
-# To avoid performance issues for using a
-# [global variable](https://docs.julialang.org/en/v1/manual/performance-tips/index.html#Avoid-global-variables-1)
-# we are going to define it as a constant using the
-# [const keyword.](https://docs.julialang.org/en/v1/base/base/#const)
-
-const rand_vector = rand(5)
+@which 1.0 + 2.0
 
 #-
 
-@code_lowered sum_numbers(rand_vector)
+@which 1 + 2
 
 #-
 
-@code_typed sum_numbers(rand_vector)
+@code_lowered 1.0 + 2.0
 
 #-
 
-@code_warntype sum_numbers(rand_vector)
+@code_typed 1.0 + 2.0
 
 #-
 
-@code_llvm sum_numbers(rand_vector)
+@code_llvm 1.0 + 2.0
 
 #-
 
-@code_native sum_numbers(rand_vector)
+@code_native 1.0 + 2.0
+
+# Julia can do extra optimizations inside functions, e.g. constant propagation:
+
+f() = 1.0 + 2.0
+@code_typed f()
 
 # #### Exercise 2
 #
 # Modify the `sum_numbers` function to make it
 # [type stable](https://docs.julialang.org/en/v1/manual/performance-tips/#Write-%22type-stable%22-functions-1)
-# by using `zero` and `eltype`. Then compare the output of the previous
-# `@code_`* macros.
+# by using `zero` and `eltype`.
 #
+# To avoid performance issues for using a
+# [global variable](https://docs.julialang.org/en/v1/manual/performance-tips/index.html#Avoid-global-variables-1)
+# we are going to define it as a constant using the
+# [const keyword.](https://docs.julialang.org/en/v1/base/base/#const)
 
-function sum_numbers(vector)
+const rand_matrix = rand(4, 4)
+
+#-
+
+function sum_numbers(numbers)
     total = 0
-    for value in vector
+    for value in numbers
         total += value
     end
     total
@@ -248,4 +247,4 @@ end
 
 # Check that you don't have any warning in the output of `@code_warntype`:
 
-@code_warntype sum_numbers(rand_vector)
+@code_warntype sum_numbers(rand_matrix)
