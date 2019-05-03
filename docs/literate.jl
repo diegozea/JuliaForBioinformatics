@@ -14,8 +14,9 @@ for file in [ "01_Introduction.jl",
 end
 
 for file in [ "04_HowJuliaWorks.jl",
+              "05_DefiningTypes.jl",
               "06_Strings.jl",
-              "08_Stats.jl" ]
+              "07_Stats.jl" ]
     Literate.markdown(joinpath(REPO, "src", "Advance", file),
         MD_OUTPUT, execute=false, documenter=true)
     Literate.notebook(joinpath(REPO, "src", "Advance", file),

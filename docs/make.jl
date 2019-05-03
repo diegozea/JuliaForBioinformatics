@@ -14,8 +14,9 @@ makedocs(;
         ],
         "Advance" => [
             "04_HowJuliaWorks.md"
+            "05_DefiningTypes.md"
             "06_Strings.md"
-            "08_Stats.md"
+            "07_Stats.md"
         ]
     ],
     # repo="https://github.com/diegozea/JuliaForBioinformatics.jl/blob/{commit}{path}#L{line}",

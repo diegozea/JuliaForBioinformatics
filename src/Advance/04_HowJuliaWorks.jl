@@ -98,13 +98,20 @@ say_my_type(2.0)
 
 say_my_type(x::T) where {T <: Real} = println(x, " is a Real number of type ",  T)
 
+#-
+
+methods(say_my_type)
+
 # ### Parametric types
 #
 # Julia types can have parameters. We have already used parametric types, one
 # of them is Array:
 
-cube = zeros(Int, 3, 3, 3)
-typeof(cube)
+three_d_array = zeros(Int, 4, 3, 2)
+
+#-
+
+typeof(three_d_array)
 
 # Julia Arrays take two parameters, the type of the elements stored in the array
 # and the array dimensions.
@@ -122,14 +129,24 @@ say_my_type(Float64[1 3 5; 2 4 6])
 # #### Exercise 1
 #
 # Add a method to `say_my_type` that prints the number of unique values of an
-# array of characters or strings and its dimensions.
+# array of characters or strings and its dimensions. Hint: You can use the
+# `unique` function.
 
-## ... text array with ... dimensions and ... unique values ...
+## ... println(x, " is a text array with ... dimensions and ... unique values of type ...
+
+# That means that the function call:
+# ```julia
+# test_array = ['a', 'b', 'b']
+# say_my_type(test_array)
+# ```
+# Should print something like:
+# ```
+# ['a', 'b', 'b'] is a text array with 1 dimensions and 2 unique values of type Char
+# ```
 
 # ### Which method is being used?
 #
-# You can use the `@which` macro to ask Julia which particular method is being
-# used
+# You can use the `@which` macro to ask Julia which method is being used
 
 @which say_my_type(2 + 0im)
 
@@ -143,7 +160,7 @@ say_my_type(Float64[1 3 5; 2 4 6])
 # After selecting the most specific method, Julia (generally) compiles the
 # method for the particular argument types.
 #
-# Because of that, the first time a function is called, it is compiled (slow).
+# For this reason, the first time a function is called, it is compiled (slow).
 # If you call the same function a second time with the same argument types, it
 # will use the already compiled code (fast).
 
@@ -159,12 +176,21 @@ say_my_type(Float64[1 3 5; 2 4 6])
 # types or functions or to code some parts in C/Fortran to get a good
 # performance like in other high-level languages.
 #
+#
 # Also, Julia represents its own code as a Julia data structure. This allows a
 # program to transform and generate its own code, using **macros** and
 # **generated functions**, for example, and powerful reflection capabilities
 # to explore the internals of a program. You can read the
 # [metaprogramming section of the manual](https://docs.julialang.org/en/v1/manual/metaprogramming/)
 # to learn more about this topic.
+#
+
+##?@elapsed
+
+#-
+
+macroexpand(Main, :(@elapsed sum(1:10_000)))
+
 #
 # ![](JuliaCompiler.png)
 #
@@ -211,3 +237,15 @@ const rand_vector = rand(5)
 # by using `zero` and `eltype`. Then compare the output of the previous
 # `@code_`* macros.
 #
+
+function sum_numbers(vector)
+    total = 0
+    for value in vector
+        total += value
+    end
+    total
+end
+
+# Check that you don't have any warning in the output of `@code_warntype`:
+
+@code_warntype sum_numbers(rand_vector)
