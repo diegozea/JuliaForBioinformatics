@@ -81,7 +81,9 @@ table_path = joinpath(data_path, "pdb_chain_taxonomy_head.tsv")
 ```
 
 ```@example 07_Stats; continued = true
-df = CSV.read("pdb_chain_taxonomy.tsv",
+table_path = "pdb_chain_taxonomy.tsv"
+
+df = CSV.read(table_path,
     header = 2,  ## the header is in the second line
     delim = '\t',  ## delimiter is TAB instead of ','
     quotechar='`'  ## file don't use "" to quote, e.g.: "Bacillus coli" Migula 1895
@@ -109,7 +111,7 @@ count_df = by(df, :TAX_ID, Count = :TAX_ID => length)
 sort!(count_df, :Count, rev=true)
 ```
 
-#### Exercice 1
+#### Exercise 1
 
 What are the species with more PDBs (not PDB chains)?
 
@@ -134,6 +136,39 @@ f ∘ g
 ```@example 07_Stats
 # ...your solution...
 ```
+
+## Plots
+
+They are multiple plotting packages in Julia. Here I will show
+[StatsPlots](https://github.com/JuliaPlots/StatsPlots.jl), an extension of
+[Plots](docs.juliaplots.org/latest/) for statistical plotting.
+However, if you love the grammar of graphics, you will be more comfortable
+with [Gadfly](https://github.com/GiovineItalia/Gadfly.jl).
+
+```@example 07_Stats
+using StatsPlots
+```
+
+```@example 07_Stats
+@df count_df bar(:TAX_ID, :Count)
+```
+
+```@example 07_Stats
+@df count_df marginalhist(:TAX_ID, :Count)
+```
+
+```@example 07_Stats
+@df count_df violin(:Count)
+```
+
+```@example 07_Stats
+@df count_df boxplot!([1.0], :Count, bar_width=0.1)
+```
+
+#### Exercise 2
+
+Do a histogram and a density plot of the variable `:Count`.
+Hint: Use `normalize=true`
 
 *This page was generated using [Literate.jl](https://github.com/fredrikekre/Literate.jl).*
 
