@@ -1,5 +1,8 @@
 # # Counting residues
 #
+#md # [![](https://mybinder.org/badge_logo.svg)](@__BINDER_ROOT_URL__notebooks/10_Information.ipynb)
+#md # [![](https://img.shields.io/badge/show-nbviewer-579ACA.svg)](@__NBVIEWER_ROOT_URL__notebooks/10_Information.ipynb)
+#
 # MIToS was designed to perform fast counting of residues. To achieve that,
 # each `Residue` is encoded as an integer that can be used to index.
 #

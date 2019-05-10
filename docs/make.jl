@@ -19,6 +19,11 @@ makedocs(;
             "07_Stats.md"
             "08_Packages_Homework.md"
         ],
+        "Bioinformatics" => [
+            "09_MSA.md"
+            "10_Information.md"
+            "11_PDB.md"
+        ],
         "API" => "api.md"
     ],
     # repo="https://github.com/diegozea/JuliaForBioinformatics.jl/blob/{commit}{path}#L{line}",

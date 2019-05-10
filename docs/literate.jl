@@ -24,6 +24,15 @@ for file in [ "04_HowJuliaWorks.jl",
         NB_OUTPUT, execute=false, documenter=true)
 end
 
+for file in [ "09_MSA.jl",
+              "10_Information.jl",
+              "11_PDB.jl" ]
+    Literate.markdown(joinpath(REPO, "src", "Bioinformatics", file),
+        MD_OUTPUT, execute=false, documenter=true)
+    Literate.notebook(joinpath(REPO, "src", "Bioinformatics", file),
+        NB_OUTPUT, execute=false, documenter=true)
+end
+
 # copy some figures to the build directory
 cp(joinpath(REPO, "src", "Advance", "figures", "JuliaCompiler.png"),
     joinpath(MD_OUTPUT, "JuliaCompiler.png"); force = true)
